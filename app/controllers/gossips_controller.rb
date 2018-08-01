@@ -3,7 +3,20 @@ class GossipsController < ApplicationController
     @gossip = Gossip.last
   end
 
+  def edit(username)
+    @gossip = Gossip.find_by(:username username)
+    @gossip.update(gossip_params)
+
+  end
+
+  def update(gossip_params)
+
+    @gossip.save
+    redirect_to @gossip
+  end
+
   def new
+
   end
 
   def create
@@ -12,9 +25,9 @@ class GossipsController < ApplicationController
     @gossip.save
     redirect_to @gossip
   end
-end
 
-private
-  def gossip_params
-    params.require(:gossip).permit(:title, :content)
-  end
+  private
+    def gossip_params
+      params.require(:gossip).permit(:title, :content)
+    end
+end
