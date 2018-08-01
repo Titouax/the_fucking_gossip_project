@@ -3,27 +3,29 @@ class GossipsController < ApplicationController
     @gossip = Gossip.last
   end
 
-  def edit(username)
-    @gossip = Gossip.find_by(:username username)
-    @gossip.update(gossip_params)
-
+  def edit
+    @gossip = Gossip.find(params[:id])
+    if @gossip.update(gossip_params)
+      redirect_to @username
+    else
+      render 'edit'
+    end
+    @gossip.save
   end
 
-  def update(gossip_params)
-
-    @gossip.save
-    redirect_to @gossip
+  def update
   end
 
   def new
-
   end
 
   def create
     @gossip = Gossip.new(gossip_params)
-
-    @gossip.save
-    redirect_to @gossip
+    if @gossip.save
+      redirect_to @gossip
+    else
+      render 'new'
+    end
   end
 
   private
