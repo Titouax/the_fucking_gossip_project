@@ -7,3 +7,15 @@ span.btn {
     color: white;
   }
 }
+
+section.CTA {
+  height: 650px;
+  background-image: url(asset-path("bg1.jpg"));
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+}
+
+div.section {
+  padding-top: 200px;
+  color: white;
+}
