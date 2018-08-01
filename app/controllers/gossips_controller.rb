@@ -1,23 +1,35 @@
 class GossipsController < ApplicationController
-  def show
-    @gossip = Gossip.last
+  def index
+
+  end
+
+  def update
+     @gossip = Gossip.find(params[:id])
+     post_params = params.require(:gossip).permit(:title, :content, :anonymous_gossiper)
+     @gossip.update(post_params)
+     redirect_to @gossip
   end
 
   def edit
     @gossip = Gossip.find(params[:id])
-    if @gossip.update(gossip_params)
-      redirect_to @username
-    else
-      render 'edit'
-    end
-    @gossip.save
   end
 
-  def update
+
+
+  def show
+    @gossip = Gossip.find(params[:id])
+  end
+
+  def destroy
+    @gossip = Gossip.find(params[:id])
+    @gossip.destroy
+    redirect_to '/'
   end
 
   def new
   end
+
+
 
   def create
     @gossip = Gossip.new(gossip_params)
@@ -30,6 +42,6 @@ class GossipsController < ApplicationController
 
   private
     def gossip_params
-      params.require(:gossip).permit(:title, :content)
+      params.require(:gossip).permit(:title, :content, :anonymous_gossiper)
     end
 end
